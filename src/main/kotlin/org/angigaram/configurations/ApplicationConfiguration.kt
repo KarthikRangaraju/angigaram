@@ -8,6 +8,7 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
+import org.springframework.web.client.RestTemplate
 
 
 @Configuration
@@ -26,5 +27,10 @@ class ApplicationConfiguration {
         jackson2ObjectMapperBuilder.modules(KotlinModule())
 
         return jackson2ObjectMapperBuilder.build()
+    }
+
+    @Bean
+    fun restTemplate(): RestTemplate {
+        return RestTemplate()
     }
 }

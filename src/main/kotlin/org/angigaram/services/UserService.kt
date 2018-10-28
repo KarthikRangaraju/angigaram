@@ -19,8 +19,12 @@ class UserService(val userRepository: UserRepository, val slackClientService: Sl
     }
 
     fun save(user: User): User {
-        userRepository.save(UserEntity(user.guid, user.name, user.timeZone, user.photoUrl, ZonedDateTime.now(),
-                ZonedDateTime.now()))
+        userRepository.save(
+            UserEntity(
+                user.guid, user.name, user.timeZone, user.photoUrl, ZonedDateTime.now(),
+                ZonedDateTime.now()
+            )
+        )
         return user
     }
 }

@@ -7,9 +7,11 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "users")
-data class UserEntity(@Id val guid: String,
-                      val name: String,
-                      val timeZone: String,
-                      val photoUrl: String,
-                      val createdAt: ZonedDateTime,
-                      val updatedAt: ZonedDateTime)
+data class UserEntity(
+    @Id val guid: String,
+    val name: String,
+    val timeZone: String,
+    val photoUrl: String,
+    val createdAt: ZonedDateTime,
+    val updatedAt: ZonedDateTime
+)
