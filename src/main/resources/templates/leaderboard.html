@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+table{width:100%;}
+table td, table th { border: 1px solid grey;}
+table th { background: #eee;}
+.pagination-div{user-select: none;}
+.pagination-div span{border-radius:3px;border:1px solid #999;
+   padding:5px;margin:10px 0px 0px 10px;display:inline-block}
+span.selected{background:#ccf;}
+
+    </style>
+</head>
+<body>
+<h2 th:text="${title}"></h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Badges Summary</th>
+        <th>Total Badges</th>
+        <th>Badges Remaining For Today</th>
+    </tr>
+    <tr th:each="leaderBoardSummary : ${page.content}">
+        <td th:text="${leaderBoardSummary.name}"></td>
+        <td>
+            <th:block th:each="badgeSummary : ${leaderBoardSummary.badgeSummaries}">
+                <span th:text="@{{badge}: {count}(badge=${badgeSummary.badge},count=${badgeSummary.count})}"></span>
+                <br>
+            </th:block>
+        </td>
+        <td th:text="${leaderBoardSummary.totalBadges}"></td>
+        <td th:text="${leaderBoardSummary.badgesRemainingForToday}"></td>
+    </tr>
+</table>
+
+<div class="pagination-div">
+    <span th:if="${page.hasPrevious()}">
+        <a th:href="@{/leaderboards/{path}?(path=${path},page=${page.number-1},size=${page.size})}"><<</a>
+    </span>
+    <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+        <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
+        <span th:unless="${page.number == i}">
+             <a th:href="@{/leaderboards/{path}?(path=${path},page=${i},size=${page.size})}">[[${i}+1]]</a>
+        </span>
+    </th:block>
+    <span th:if="${page.hasNext()}">
+        <a th:href="@{/leaderboards/{path}?(path=${path},page=${page.number+1},size=${page.size})}">>></a>
+    </span>
+</div>
+</body>
+</html>
